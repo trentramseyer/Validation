@@ -11,28 +11,30 @@ use Respect\Validation\Exceptions\DateException;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as v;
 
+date_default_timezone_set('UTC');
+
 try {
     v::date()->check('2018-01-29T08:32:54+00:00');
 } catch (DateException $exception) {
-    echo $exception->getMessage().PHP_EOL;
+    echo $exception->getMessage() . PHP_EOL;
 }
 
 try {
     v::not(v::date())->check('2018-01-29');
 } catch (DateException $exception) {
-    echo $exception->getMessage().PHP_EOL;
+    echo $exception->getMessage() . PHP_EOL;
 }
 
 try {
     v::date()->assert('2018-01-29T08:32:54+00:00');
 } catch (NestedValidationException $exception) {
-    echo $exception->getFullMessage().PHP_EOL;
+    echo $exception->getFullMessage() . PHP_EOL;
 }
 
 try {
     v::not(v::date('d/m/Y'))->assert('29/01/2018');
 } catch (NestedValidationException $exception) {
-    echo $exception->getFullMessage().PHP_EOL;
+    echo $exception->getFullMessage() . PHP_EOL;
 }
 ?>
 --EXPECT--

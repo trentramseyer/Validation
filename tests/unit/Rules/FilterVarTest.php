@@ -13,10 +13,14 @@ declare(strict_types=1);
 
 namespace Respect\Validation\Rules;
 
+use Respect\Validation\Exceptions\ComponentException;
 use Respect\Validation\Test\RuleTestCase;
+
+use const FILTER_FLAG_HOSTNAME;
 use const FILTER_FLAG_QUERY_REQUIRED;
 use const FILTER_SANITIZE_EMAIL;
 use const FILTER_VALIDATE_BOOLEAN;
+use const FILTER_VALIDATE_DOMAIN;
 use const FILTER_VALIDATE_EMAIL;
 use const FILTER_VALIDATE_FLOAT;
 use const FILTER_VALIDATE_INT;
@@ -35,12 +39,12 @@ final class FilterVarTest extends RuleTestCase
 {
     /**
      * @test
-     *
-     * @expectedException \Respect\Validation\Exceptions\ComponentException
-     * @expectedExceptionMessage Cannot accept the given filter
      */
     public function itShouldThrowsExceptionWhenFilterIsNotValid(): void
     {
+        $this->expectException(ComponentException::class);
+        $this->expectExceptionMessage('Cannot accept the given filter');
+
         new FilterVar(FILTER_SANITIZE_EMAIL);
     }
 
@@ -55,6 +59,7 @@ final class FilterVarTest extends RuleTestCase
             [new FilterVar(FILTER_VALIDATE_FLOAT), 1.5],
             [new FilterVar(FILTER_VALIDATE_BOOLEAN), 'On'],
             [new FilterVar(FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED), 'http://example.com?foo=bar'],
+            [new FilterVar(FILTER_VALIDATE_DOMAIN), 'example.com'],
         ];
     }
 
@@ -66,6 +71,8 @@ final class FilterVarTest extends RuleTestCase
         return [
             [new FilterVar(FILTER_VALIDATE_INT), 1.4],
             [new FilterVar(FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED), 'http://example.com'],
+            [new FilterVar(FILTER_VALIDATE_DOMAIN), '.com'],
+            [new FilterVar(FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME), '@local'],
         ];
     }
 }

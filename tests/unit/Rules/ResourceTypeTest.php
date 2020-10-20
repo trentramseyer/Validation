@@ -15,6 +15,7 @@ namespace Respect\Validation\Rules;
 
 use Respect\Validation\Test\RuleTestCase;
 use stdClass;
+
 use function stream_context_create;
 use function tmpfile;
 use function xml_parser_create;
@@ -39,8 +40,19 @@ final class ResourceTypeTest extends RuleTestCase
         return [
             [$rule, stream_context_create()],
             [$rule, tmpfile()],
-            [$rule, xml_parser_create()],
         ];
+    }
+
+    /**
+     * @test
+     *
+     * @requires PHP < 8.0
+     */
+    public function itShouldTestXmlResource(): void
+    {
+        $rule = new ResourceType();
+
+        self::assertValidInput($rule, xml_parser_create());
     }
 
     /**

@@ -17,8 +17,10 @@ use finfo;
 use Respect\Validation\Test\RuleTestCase;
 use SplFileInfo;
 use SplFileObject;
+
 use function random_int;
 use function tmpfile;
+
 use const FILEINFO_MIME_TYPE;
 use const PHP_INT_MAX;
 
@@ -45,7 +47,6 @@ final class MimetypeTest extends RuleTestCase
         $fileInfoMock = $this
             ->getMockBuilder(finfo::class)
             ->disableOriginalConstructor()
-            ->setMethods(['file'])
             ->getMock();
 
         $fileInfoMock

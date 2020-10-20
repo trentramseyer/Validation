@@ -26,10 +26,10 @@ $validator->key('schema', v::stringType());
 try {
     $validator->assert($config);
 } catch (AllOfException $exception) {
-    echo $exception->getFullMessage().PHP_EOL;
+    echo $exception->getFullMessage() . PHP_EOL;
 }
 ?>
 --EXPECT--
 - These rules must pass for Settings
   - host must be of type string
-  - Key user must be present
+  - user must be present

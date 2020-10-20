@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Respect\Validation\Rules;
 
+use Respect\Validation\Exceptions\ComponentException;
 use Respect\Validation\Test\RuleTestCase;
 
 /**
@@ -48,13 +49,13 @@ final class PostalCodeTest extends RuleTestCase
     }
 
     /**
-     * @expectedException \Respect\Validation\Exceptions\ComponentException
-     * @expectedExceptionMessage Cannot validate postal code from "Whatever" country
-     *
      * @test
      */
     public function shouldThrowsExceptionWhenCountryCodeIsNotValid(): void
     {
+        $this->expectException(ComponentException::class);
+        $this->expectExceptionMessage('Cannot validate postal code from "Whatever" country');
+
         new PostalCode('Whatever');
     }
 
@@ -80,6 +81,17 @@ final class PostalCodeTest extends RuleTestCase
             [new PostalCode('KR'), '03187'],
             [new PostalCode('IE'), 'D14 YD91'],
             [new PostalCode('IE'), 'D6W 3333'],
+            [new PostalCode('EC'), '170515'],
+            [new PostalCode('IL'), '7019900'],
+            [new PostalCode('IL'), '94142'],
+            [new PostalCode('KY'), 'KY1-1102'],
+            [new PostalCode('KY'), 'KY2-2001'],
+            [new PostalCode('KY'), 'KY2-2001'],
+            [new PostalCode('KY'), 'KY3-2500'],
+            [new PostalCode('AM'), '0010'],
+            [new PostalCode('RS'), '24430'],
+            [new PostalCode('GR'), '24430'],
+            [new PostalCode('GR'), '244 30'],
         ];
     }
 
@@ -100,6 +112,10 @@ final class PostalCodeTest extends RuleTestCase
             [new PostalCode('PL'), '99300'],
             [new PostalCode('KR'), '548940'],
             [new PostalCode('KR'), '548-940'],
+            [new PostalCode('EC'), 'A1234B'],
+            [new PostalCode('KY'), 'KY4-2500'],
+            [new PostalCode('AM'), '375010'],
+            [new PostalCode('RS'), '244300'],
         ];
     }
 }

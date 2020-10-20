@@ -42,18 +42,18 @@ try {
             ],
         ]);
 } catch (NestedValidationException $exception) {
-    echo $exception->getFullMessage().PHP_EOL;
+    echo $exception->getFullMessage() . PHP_EOL;
 }
 ?>
 --EXPECT--
 - All of the required rules must pass for the given data
   - All of the required rules must pass for mysql
     - host must be of type string
-    - Key user must be present
-    - Key password must be present
+    - user must be present
+    - password must be present
     - schema must be of type string
   - All of the required rules must pass for postgresql
-    - Key host must be present
+    - host must be present
     - user must be of type string
     - password must be of type string
-    - Key schema must be present
+    - schema must be present

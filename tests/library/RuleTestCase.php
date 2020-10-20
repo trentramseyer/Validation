@@ -17,7 +17,9 @@ use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Message\Formatter;
 use Respect\Validation\Message\Stringifier\KeepOriginalStringName;
 use Respect\Validation\Validatable;
+
 use function realpath;
+use function Respect\Stringifier\stringify;
 use function sprintf;
 
 /**
@@ -62,7 +64,7 @@ abstract class RuleTestCase extends TestCase
      */
     public function getFixtureDirectory(): string
     {
-        return realpath(__DIR__.'/../fixtures');
+        return (string) realpath(__DIR__ . '/../fixtures');
     }
 
     /**
@@ -74,11 +76,6 @@ abstract class RuleTestCase extends TestCase
     {
         $validatableMocked = $this->getMockBuilder(Validatable::class)
             ->disableOriginalConstructor()
-            ->setMethods(
-                [
-                    'assert', 'check', 'getName', 'reportError', 'setName', 'setTemplate', 'validate',
-                ]
-            )
             ->setMockClassName($mockClassName)
             ->getMock();
 
@@ -90,12 +87,10 @@ abstract class RuleTestCase extends TestCase
         if ($expectedResult) {
             $validatableMocked
                 ->expects(self::any())
-                ->method('check')
-                ->willReturn($expectedResult);
+                ->method('check');
             $validatableMocked
                 ->expects(self::any())
-                ->method('assert')
-                ->willReturn($expectedResult);
+                ->method('assert');
         } else {
             $checkException = new ValidationException(
                 'validatable',
@@ -153,7 +148,10 @@ abstract class RuleTestCase extends TestCase
      */
     public static function assertValidInput(Validatable $rule, $input): void
     {
-        self::assertTrue($rule->validate($input));
+        self::assertTrue(
+            $rule->validate($input),
+            sprintf('Validation with input %s is expected to pass', stringify($input))
+        );
     }
 
     /**
@@ -161,6 +159,9 @@ abstract class RuleTestCase extends TestCase
      */
     public static function assertInvalidInput(Validatable $rule, $input): void
     {
-        self::assertFalse($rule->validate($input));
+        self::assertFalse(
+            $rule->validate($input),
+            sprintf('Validation with input %s it not expected to pass', stringify($input))
+        );
     }
 }

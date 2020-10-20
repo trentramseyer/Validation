@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Respect\Validation\Rules;
 
 use Respect\Validation\Exceptions\ComponentException;
+
 use function sprintf;
 
 /**
@@ -30,7 +31,7 @@ final class PostalCode extends AbstractEnvelope
         // phpcs:disable Generic.Files.LineLength.TooLong
         'AD' => '/^(?:AD)*(\d{3})$/',
         'AL' => '/^(\d{4})$/',
-        'AM' => '/^(\d{6})$/',
+        'AM' => '/^(\d{4})$/',
         'AR' => '/^[A-Z]?\d{4}[A-Z]{0,3}$/',
         'AS' => '/96799/',
         'AT' => '/^(\d{4})$/',
@@ -64,7 +65,7 @@ final class PostalCode extends AbstractEnvelope
         'DK' => '/^(\d{4})$/',
         'DO' => '/^(\d{5})$/',
         'DZ' => '/^(\d{5})$/',
-        'EC' => '/^([a-zA-Z]\d{4}[a-zA-Z])$/',
+        'EC' => '/^(\d{6})$/',
         'EE' => '/^(\d{5})$/',
         'EG' => '/^(\d{5})$/',
         'ES' => '/^(\d{5})$/',
@@ -79,7 +80,7 @@ final class PostalCode extends AbstractEnvelope
         'GG' => '/^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$/',
         'GL' => '/^(\d{4})$/',
         'GP' => '/^((97|98)\d{3})$/',
-        'GR' => '/^(\d{5})$/',
+        'GR' => '/^(\d{3}\s?\d{2})$/',
         'GT' => '/^(\d{5})$/',
         'GU' => '/^(969\d{2})$/',
         'GW' => '/^(\d{4})$/',
@@ -88,8 +89,8 @@ final class PostalCode extends AbstractEnvelope
         'HT' => '/^(?:HT)*(\d{4})$/',
         'HU' => '/^(\d{4})$/',
         'ID' => '/^(\d{5})$/',
-        'IE' => '/^([AC-FHKNPRTV-Y][0-9]{2}|D6W) ?[0-9AC-FHKNPRTV-Y]{4}$/',
-        'IL' => '/^(\d{5})$/',
+        'IE' => '/^(D6W|[AC-FHKNPRTV-Y][0-9]{2})\s?([AC-FHKNPRTV-Y0-9]{4})/',
+        'IL' => '/^(\d{7}|\d{5})$/',
         'IM' => '/^((?:(?:[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRV-Y0-9]|[A-PR-UWYZ]\d[A-HJKPS-UW0-9])\s\d[ABD-HJLNP-UW-Z]{2})|GIR\s?0AA)$/',
         'IN' => '/^(\d{6})$/',
         'IQ' => '/^(\d{5})$/',
@@ -105,6 +106,7 @@ final class PostalCode extends AbstractEnvelope
         'KP' => '/^(\d{6})$/',
         'KR' => '/^(\d{5})$/',
         'KW' => '/^(\d{5})$/',
+        'KY' => '/^KY[1-3]-\d{4}$/',
         'KZ' => '/^(\d{6})$/',
         'LA' => '/^(\d{5})$/',
         'LB' => '/^(\d{4}(\d{4})?)$/',
@@ -129,6 +131,7 @@ final class PostalCode extends AbstractEnvelope
         'MQ' => '/^(\d{5})$/',
         'MT' => '/^[A-Z]{3}\s?\d{4}$/',
         'MV' => '/^(\d{5})$/',
+        'MW' => '/^(\d{6})$/',
         'MX' => '/^(\d{5})$/',
         'MY' => '/^(\d{5})$/',
         'MZ' => '/^(\d{4})$/',
@@ -154,7 +157,7 @@ final class PostalCode extends AbstractEnvelope
         'PY' => '/^(\d{4})$/',
         'RE' => '/^((97|98)(4|7|8)\d{2})$/',
         'RO' => '/^(\d{6})$/',
-        'RS' => '/^(\d{6})$/',
+        'RS' => '/^(\d{5})$/',
         'RU' => '/^(\d{6})$/',
         'SA' => '/^(\d{5})$/',
         'SD' => '/^(\d{5})$/',

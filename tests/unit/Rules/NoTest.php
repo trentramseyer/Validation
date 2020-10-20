@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Respect\Validation\Rules;
 
 use Respect\Validation\Test\RuleTestCase;
+
 use function setlocale;
 use function sprintf;
+
 use const LC_ALL;
 
 /**
@@ -32,22 +34,6 @@ final class NoTest extends RuleTestCase
      * @var string
      */
     private $locale;
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function setUp(): void
-    {
-        $this->locale = setlocale(LC_ALL, 0);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function tearDown(): void
-    {
-        setlocale(LC_ALL, $this->locale);
-    }
 
     /**
      * {@inheritDoc}
@@ -115,7 +101,7 @@ final class NoTest extends RuleTestCase
     {
         setlocale(LC_ALL, $locale);
 
-        if ($locale !== setlocale(LC_ALL, 0)) {
+        if ($locale !== setlocale(LC_ALL, '0')) {
             $this->markTestSkipped(sprintf('Could not set locale information to "%s"', $locale));
         }
 
@@ -131,10 +117,26 @@ final class NoTest extends RuleTestCase
     {
         setlocale(LC_ALL, $locale);
 
-        if ($locale !== setlocale(LC_ALL, 0)) {
+        if ($locale !== setlocale(LC_ALL, '0')) {
             $this->markTestSkipped(sprintf('Could not set locale information to "%s"', $locale));
         }
 
         self::assertInvalidInput(new No(true), $input);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
+    {
+        $this->locale = (string) setlocale(LC_ALL, '0');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function tearDown(): void
+    {
+        setlocale(LC_ALL, $this->locale);
     }
 }
